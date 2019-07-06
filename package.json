@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "react-dev": "webpack -d --watch",
-    "start": "nodemon server"
+    "start": "nodemon -r dotenv/config server"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "dotenv": "^8.0.0",
     "webpack": "^4.35.2",
     "webpack-cli": "^3.3.5"
   },
