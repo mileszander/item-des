@@ -1,7 +1,7 @@
 module.exports = {
     apps: [{
       name: 'items-des',
-      script: './client/bundle.js'
+      script: './public/index.jsx'
     }],
     deploy: {
       production: {
