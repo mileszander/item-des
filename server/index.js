@@ -6,8 +6,10 @@ const {PORT,HOST} = require('../config.js')
 const port = PORT || 3000;
 const host = HOST || '0.0.0.0'
  app.use(cors())
- app.use(express.static('client'))
+//  app.use(express.static('client'))
  
-
+ app.get('/', (req, res) => {
+  res.send('HEY!')
+})
  
 app.listen(3000,()=>console.log('listning on host: '+host+' port: '+port))
