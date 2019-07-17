@@ -21,7 +21,7 @@ class Itemsview extends React.Component {
     componentDidMount(){
         window.addEventListener('getProduct', (e) => {
             console.log(e.detail.id)
-            axios.get('/items',{headers: {id: e.detail.id }})
+            axios.get('ec2-13-59-33-46.us-east-2.compute.amazonaws.com/items',{headers: {id: e.detail.id }})
             .then((Response)=>{ 
                 console.log(Response)
                 const htmlImages = Response.data[1].map(item=> <img onClick={()=>this.onImegeClick(item.img_src)}
