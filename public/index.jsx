@@ -93,7 +93,7 @@ class Itemsview extends React.Component {
                     </div>
                     <div class="col-lg-6">
                         <h6 > Model # DWHT51054 SKU #1001209802</h6>
-                        <img  src={this.state.theClickedImg} width='100%'></img> 
+                        <img default-src='none' src={this.state.theClickedImg} width='100%'></img> 
                     </div>
                     <div class="col-lg-3">
                         <h4 ><strong>{this.state.brand}</strong></h4>
