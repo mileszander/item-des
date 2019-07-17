@@ -11,9 +11,6 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static('client'))
-app.get('/',(req,res)=>{
-  res.send('hi')
-})
 
 app.get('/items',(req,res)=>{
   console.log(req.headers.id)
@@ -25,8 +22,11 @@ app.get('/items',(req,res)=>{
       res.send(respons)
     }
   })
-
 }) 
+
+app.get('/',(req,res)=>{
+  res.send('hi')
+})
 //  app.post('/gg', (req, res) => {
 //    console.log(req.body)
 //    const imagesArray =[]
