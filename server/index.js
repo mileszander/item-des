@@ -41,4 +41,4 @@ app.get('/',(req,res)=>{
 //   res.send('HEY!')
 // })
  
-app.listen(3000,()=>console.log('listning on host: '+' port: '+port))
+app.listen(3022,()=>console.log('listning on host: '+' port: '+port))
