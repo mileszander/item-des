@@ -13,12 +13,18 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "aws-sdk": "^2.493.0",
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "multer": "^1.4.1",
+    "multer-s3": "^2.9.0",
     "mysql": "^2.17.1",
     "path": "^0.12.7",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "s3-bucket": "^1.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
