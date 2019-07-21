@@ -11,22 +11,24 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 app.use(express.static('client'))
+app.use('/items/:id', express.static('client'))
 
-app.get('/items',(req,res)=>{
-  console.log(req.headers.id)
+app.get('/items-data/:id',(req,res)=>{
   
-  db.getOneItemInfo(Number(req.headers.id),(err,respons)=>{
+  db.getOneItemInfo(Number(req.params.id),(err,respons)=>{
     if(err){
+      throw err;
+      
       res.send(err)
     }else{
-      res.send(respons)
+        res.send(respons)
+   
     }
   })
 }) 
 
-app.get('/',(req,res)=>{
-  res.send('hi')
-})
+
+
 //  app.post('/gg', (req, res) => {
 //    console.log(req.body)
 //    const imagesArray =[]
