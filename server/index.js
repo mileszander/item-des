@@ -17,10 +17,12 @@ app.get('/items-data/:id',(req,res)=>{
   
   db.getOneItemInfo(Number(req.params.id),(err,respons)=>{
     if(err){
-      throw err;
+
+      console.log(err) ;
       
       res.send(err)
     }else{
+      console.log(respons)
         res.send(respons)
    
     }

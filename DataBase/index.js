@@ -2,10 +2,10 @@ const mysql      = require('mysql');
 const allItems = require('./allItems.js')
 require('dotenv').config();
 const connection = mysql.createConnection({
-  host     : 'sql9.freemysqlhosting.net',
-  user     : 'sql9298716',
-  password : 'fSESbX7EzN',
-  database : 'sql9298716',
+  host     : 'remotemysql.com',
+  user     : '5ZPVKjtvSa',
+  password : 'HSVdWZU1d0',
+  database : '5ZPVKjtvSa',
   Port: 3306
 });
  
@@ -33,24 +33,26 @@ const getOneItemInfo = function(id,cb) {
           for(let i =0;i<3;i++){
             relatedItemsInfo.push(results[i])
           }
-          oneItemData.push(results)
+          oneItemData.push(relatedItemsInfo)
           const relatedItemsImages =[];
+          
           for(let i =0;i<oneItemData[2].length;i++){
             connection.query(`select img_src from itemImages WHERE itemImages.img_id = '${oneItemData[2][i].id}'`, function (error, results, fields) {
               if (error){
                 cb(error)
               }else{
+                console.log(results[0].img_src)
                 relatedItemsImages.push(results[0].img_src)
-                if(relatedItemsImages.length ===4){
+                if(relatedItemsImages.length === 4 || relatedItemsImages.length === oneItemData[2].length){
                   oneItemData.push(relatedItemsImages)
-                 cb(null,oneItemData)
+                  cb(null,oneItemData)
                 }
                
 
               }
             });
           }
-          
+     
         }
       });
     }
@@ -70,7 +72,7 @@ const getOneItemInfo = function(id,cb) {
 //     }
 //   }
 // }
-
+// addAllImages()
 // function addAllItems(){
 //   for(let i =0 ;i<allItems.length;i++){
 //     connection.query(`INSERT INTO itemDescription VALUES (${allItems[i].id}, '${allItems[i].name}', "${allItems[i].description}", ${allItems[i].price},'${allItems[i].brand}','${allItems[i].category}');`, function (error, results, fields) {

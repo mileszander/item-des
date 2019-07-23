@@ -16,7 +16,7 @@ const aws = require('aws-sdk');
         Bucket: 'itemsdescr'
     }).promise();
     for (let i =0; i< respons.Contents.length ;i++){
-        imagesUrlArray.push('https://itemsdescr.s3.us-east-2.amazonaws.com/'+respons.Contents[i].Key)
+        imagesUrlArray.push({img_src:'https://itemsdescr.s3.us-east-2.amazonaws.com/'+respons.Contents[i].Key ,})
    
     }
     //console.log(imagesUrlArray)

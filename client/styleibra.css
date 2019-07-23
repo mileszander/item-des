@@ -1,50 +1,30 @@
 .Ibrahimcontainer {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 2fr 1fr 1fr;
+  display: flex;
+  flex-direction: row 
 }
 .IbrahimImages {
-  float: left;
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
+   flex-grow: 1
   }
   .IbrahimMainImage {
     
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    flex-grow:2
   }
   .IbrahimitemInfo {
-    float: right;
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    flex-grow:1
   }
   .IbrahimFreqWord {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    flex-grow:1
   }
   .IbrahimFreqItems1 {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    flex-grow:1
   }
   .IbrahimFreqItems2 {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    flex-grow:1
   }
   .IbrahimFreqItems3 {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    flex-grow:1
+  }
+  Ibrahimfrec {
+    margin: 5px;
+    border-bottom: 3px solid #f96302;
   }
