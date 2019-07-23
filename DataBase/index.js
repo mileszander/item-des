@@ -4,7 +4,7 @@ require('dotenv').config();
 const connection = mysql.createConnection({
   host     : 'remotemysql.com',
   user     : '5ZPVKjtvSa',
-  password : 'HSVdWZU1d0',
+  password : process.env.password,
   database : '5ZPVKjtvSa',
   Port: 3306
 });
