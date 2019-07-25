@@ -3,9 +3,9 @@ const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 // const s3Images = require('./services/multer_s3.js')
-const db = require('../DataBase/index.js')
+const db = require('../db/index.js')
 const {PORT,HOST} = require('../config.js')
-const port = PORT || 3000;
+const port = 3000;
 const app = express()
 
 app.use(bodyParser.json())

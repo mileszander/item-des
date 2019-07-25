@@ -2,11 +2,10 @@ const mysql      = require('mysql');
 const allItems = require('./allItems.js')
 require('dotenv').config();
 const connection = mysql.createConnection({
-  host     : 'remotemysql.com',
-  user     : '5ZPVKjtvSa',
-  password : process.env.password,
-  database : '5ZPVKjtvSa',
-  Port: 3306
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'itemsData'
 });
  
 connection.connect();

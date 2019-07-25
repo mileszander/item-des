@@ -51,7 +51,7 @@ class Itemsview extends React.Component {
     }   
 
     getReview(id){
-        axios.get(`http://homedepottreviews.us-east-2.elasticbeanstalk.com/reviews/${id}`)
+        axios.get(`localhost:3000/${id}`)
         .then((Response)=> {return Response})
         .then((Response)=> {
             this.setState({ratingArray: Response.data.map(item=> item.rating)})
