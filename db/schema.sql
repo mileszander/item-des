@@ -1,18 +1,18 @@
-DROP DATABASE IF EXISTS itemsData;
-CREATE DATABASE itemsData;
+DROP DATABASE IF EXISTS casaDB;
+CREATE DATABASE casaDB
+
 USE itemsData;
 
-CREATE TABLE itemDescription(
-	id INT,
-    name TEXT,
-    description TEXT,
-    price INT,
-    brand TEXT,
-    PRIMARY KEY (id)
+CREATE TABLE items(
+	id SERIAL primary key,
+    itemName VARCHAR(50),
+    catagory VARCHAR(50),
+    price INT
 );
-CREATE TABLE itemImages(
-	id SERIAL,
-    img_id INT,
-    img_src TEXT,
-    FOREIGN KEY (img_id) REFERENCES itemDescription (id)
-);
+
+-- CREATE TABLE itemImages(
+-- 	id SERIAL,
+--     img_id INT,
+--     img_src TEXT,
+--     FOREIGN KEY (img_id) REFERENCES itemDescription (id)
+-- );
