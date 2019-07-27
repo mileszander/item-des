@@ -3,11 +3,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.SERVER_PORT
-const HOST = process.env.SERVER_HOST
+const PORT = 3001
+const HOST = 'localhost'
 const bodyParser = require("body-parser");
 const path = require('path');
-const db = require("../db/configDB.js")
+const monDB = require("../db/configDB.js")
 // const data = require("./makeReviews.js")
 // const compression = require('compression')
 
@@ -20,20 +20,16 @@ app.use(express.static('client/dist'));
 
 
 app.get('/id/:id', function (req, res) {
-    let idNum = parseInt(req.params.id)
-    db.getById(idNum, (err, result) => {
-      if (err) {
-        res.send(`couldn't get`)
-        console.log(`we didn't get it`)
-      } else {
-        // console.log(req)
-        console.log('we got it')
-        res.send(result)
-      }
+    let idNum = req.params.id
+    monDB.getByIdFast(idNum)
+    .then((result) => {
+      console.log(typeof result._id)
+      res.send(result)
     })
-  })
+    .catch(console.log)
+})
   
 
 
 app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+console.log(`Running on http://${HOST}:${PORT}`)

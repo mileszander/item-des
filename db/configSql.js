@@ -17,6 +17,7 @@ const getAll  = () => {
     })
     
   }
+//don't EXECUTE
 
 //Add One
 const addOne  = (arr) => {
@@ -28,6 +29,55 @@ const addOne  = (arr) => {
 
 //Execute ADD ONE
 // addOne(arr)
+
+//REFACTORED BATCH INSERT TO BE QUICKER
+const makeDataArr = () => {
+  const result = []
+  for (let i=0; i < 10; i++) {
+    let hold = []
+    hold.push(faker.company.bsNoun());
+    hold.push(faker.company.bsNoun());
+    hold.push(Math.round(Math.random()*2000))
+    result.push(hold)
+  }
+  return result
+}
+
+const addManyFaster = () => {
+  let items
+  makeDataArr((err, result) => {
+    items = result
+  })
+  let sql = "INSERT INTO itemsFast (itemname, catagory, price) VALUES ?";
+  pool.query(sql, [items], function(err) {
+    if (err) throw err;
+    pool.end();
+    })
+  }
+//discarded code for MAKING FASTER SEEDED DB
+  // addManyFaster()
+  
+//   return addOne(item)
+//   .then(()=> {
+//     dataLimit++
+//     if (dataLimit < 10000000) {
+//       addMany()
+//     } else {
+//       pool.end()
+//       console.timeEnd('makeMany')
+//       return;
+//     }
+  
+//   })
+//   .catch(console.log)
+// }
+
+// makeDataArr()
+
+
+// INSERT INTO films (code, title, did, date_prod, kind) VALUES
+//     ('B6717', 'Tampopo', 110, '1985-02-10', 'Comedy'),
+//     ('HG120', 'The Dinner Game', 140, DEFAULT, 'Comedy');
 
 
 //MAKE MANY 
@@ -43,6 +93,9 @@ const makeData = (callback) => {
   // }
   callback(null, hold)
 }
+
+
+
 
 //ADD MANY
 let dataLimit = 0
@@ -75,18 +128,18 @@ const addMany = () => {
 
 //find one will be a lot faster
 const getById = (num) => {
-  console.time('findOne')
+  // console.time('findOne')
+  //QUERY IS PROMISIFIED, NOW 
   return pool.query(`SELECT * FROM items WHERE id =${num}`)
-    .then((res) => {
-      console.log(res.rows)
-      console.timeEnd('findOne')
 
-  })
-  .catch(console.error);
 }
 
 //exectuion for testing
-getById(5000000)
+// getById(5000000)
+
+module.exports = {
+  getById
+}
 
 
 

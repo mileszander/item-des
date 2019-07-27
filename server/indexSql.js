@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.SERVER_PORT
-const HOST = process.env.SERVER_HOST
+const PORT = 3002
+const HOST = 'localhost'
 const bodyParser = require("body-parser");
 const path = require('path');
-// const db = require("../db/configDB.js")
+const db = require("../db/configSql.js")
 // const data = require("./makeReviews.js")
 // const compression = require('compression')
 
@@ -15,6 +15,18 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(compression())
 
 app.use(express.static('client/dist'));
+
+app.get('/id/:id', (req,res) => {
+    const productId = req.params.id
+    //getById is promisified, no return statemenet necessary
+    db.getById(productId)
+    .then((result) => {
+        res.send(result.rows[0])
+    })
+    .catch(console.log)
+})
+
+
 
 
 
