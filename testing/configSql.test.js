@@ -51,4 +51,4 @@ test('expect object price to be a numbers', () => {
 
 
 //tear down function 
-// afterAll(() => monDB.db.close() )
+afterAll(() => monDB.db.close())

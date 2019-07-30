@@ -20,8 +20,10 @@ class Itemsview extends React.Component {
             descrbtionArray: [],
             price: 0,
             quantity: 1,
+            //grab whole array to calculate the average
             ratingArray: [],
-            ratingAvg:0,
+            // we will calculate this
+            ratingAvg:4,
             isWidthToSmall: false,
             frequentlyBoughtTogetherArray:[]
         }
@@ -30,62 +32,73 @@ class Itemsview extends React.Component {
 
     componentDidMount(){
         window.addEventListener('resize', (resize)=>{
+            //dynmaic sizing
             if(resize.currentTarget.innerWidth < 860){
                  this.setState({isWidthToSmall: true})
             }else{
                 this.setState({isWidthToSmall: false})
             }
         })
-       
-        if(this.state.id === ''){
-            this.getData(window.location.pathname.slice(10))
-            this.getReview(window.location.pathname.slice(10))
-        }
-        window.addEventListener('updatePath', (e) => {
-            this.getData(e.detail.id)
-            this.getReview(e.detail.id)
-        })
-       
-        
- 
+        this.getData(5)
+       //grab ID from window
+        // if(this.state.id === ''){
+        //     this.getData(window.location.pathname.slice(10))
+        //     //gets star data, probably optional
+        //     this.getReview(window.location.pathname.slice(10))
+        // }
+        //won't be executed
+        // window.addEventListener('updatePath', (e) => {
+        //     this.getData(e.detail.id)
+        //     this.getReview(e.detail.id)
+        // })
     }   
-
-    getReview(id){
-        axios.get(`localhost:3000/${id}`)
-        .then((Response)=> {return Response})
-        .then((Response)=> {
-            this.setState({ratingArray: Response.data.map(item=> item.rating)})
-            this.setState({ratingAvg: this.getAvgRating(this.state.ratingArray)})
-        })
-        .catch((error)=> console.log(error))
-    }
-
-    getAvgRating(ratingArray){
-        let sum =0;
-        for(let i = 0; i<ratingArray.length;i++){
-            sum =sum +ratingArray[i]
-        }
-        return sum/ratingArray.length;
-    }
+    
+    //Grabs reviews
+    // getReview(id){
+    //     axios.get(`localhost:3000/${id}`)
+    //     .then((Response)=> {return Response})
+    //     .then((Response)=> {
+    //         this.setState({ratingArray: Response.data.map(item=> item.rating)})
+    //         this.setState({ratingAvg: this.getAvgRating(this.state.ratingArray)})
+    //     })
+    //     .catch((error)=> console.log(error))
+    // }
+    //Calculates avg review
+    // getAvgRating(ratingArray){
+    //     let sum =0;
+    //     for(let i = 0; i<ratingArray.length;i++){
+    //         sum =sum +ratingArray[i]
+    //     }
+    //     return sum/ratingArray.length;
+    // }
 
     getData(id){
-
-        axios.get(`/items-data/${id}`)
+        axios.get(`/id/${id}`)
         .then((Response)=>{
-            const htmlImages = this.gitImages(Response.data[1]);
-            console.log(htmlImages)
+            //I BELIEVE THIS MOUNT THE IMAGES, hardcode 3 image links)
+            console.log(Response.data)
+            // const htmlImages = this.gitImages(Response.data[1]);
+            // console.log(htmlImages)
             // const carouselImages = this.gitImagesCarousel(Response.data[1]);
-            const frequentlyBoughtTogether = this.gitfrequentlyBoughtTogether(Response.data[2],Response.data[3],Response.data[0].id);
-            const itemInfo = Response.data[0]
-            const desc = this.getDescrption(itemInfo[0].description)
-            this.dataMunt(htmlImages,itemInfo,desc,id,frequentlyBoughtTogether)
-            return Response})
-        .then((Response)=>{this.setState({theClickedImg: Response.data[1][0].img_src})})
+            //Don't need this, hard  coded
+            // const frequentlyBoughtTogether = this.gitfrequentlyBoughtTogether(Response.data[2],Response.data[3],Response.data[0].id);
+            const itemInfo = Response.data
+            const desc = 'This product is very good, please buy'
+            //this sets state for everything
+            this.dataMunt(itemInfo,desc)
+            // this.dataMunt(htmlImages,itemInfo,desc,id,frequentlyBoughtTogether)
+            //WHY RETURN RESPONSE??
+            // return Response
+        })
+        //set images
+        // .then(() => {})
+        // .then((Response)=>{this.setState({theClickedImg: Response.data[1][0].img_src})})
         .catch(()=>console.log('error in componandddd'));
         
    
     }
 
+    //gets frequently bought together, might refactor 
     gitfrequentlyBoughtTogether(info,images,id){
         const infoNew =[]
         info.map((item,index)=> item.src=images[index])
@@ -95,7 +108,6 @@ class Itemsview extends React.Component {
             }
         }
         return infoNew;
-       
     }
 
 //     gitImagesCarousel(Response){
@@ -103,28 +115,44 @@ class Itemsview extends React.Component {
 //    return Response;
 //     }
 
+    //images for main item
     gitImages(Response){
         Response =  Response.map(item=><div> <img  onClick={()=>this.onImegeClick(item.img_src)}
              src={item.img_src}  width='50%'></img></div>)
         return Response;
     }
 
-    getDescrption(description){
-    description = description.split(';').map(item=> <li  >{item}</li>)
-        return description;
-    }
+    //This is weird, I don't what this is doing
+    // getDescrption(description){
+    // description = description.split(';').map(item=> <li  >{item}</li>)
+    //     return description;
+    // }
     
-
-    dataMunt(htmlImages,itemInfo,desc,id,frequentlyBoughtTogether){
+    // This is what we will use to retrieve and mount data
+    //Brohaims original dataMunt
+    // dataMunt(htmlImages,itemInfo,desc,id,frequentlyBoughtTogether){
+    //     this.setState({
+    //         imagesArray: htmlImages,
+    //         brand: itemInfo.catagory,
+    //         name: itemInfo.name,
+    //         price: itemInfo.price,
+    //         descrbtionArray: desc,
+    //         id: id,
+    //         frequentlyBoughtTogetherArray:frequentlyBoughtTogether
+    //     })
+    //     console.log(this.state.name)
+    // }
+    // dataMunt(htmlImages,itemInfo,desc,id,frequentlyBoughtTogether){
+    dataMunt(itemInfo, desc){
         this.setState({
-            imagesArray: htmlImages,
-            brand: itemInfo[0].brand,
-            name: itemInfo[0].name,
-            price: itemInfo[0].price,
+            brand: itemInfo.catagory,
+            name: itemInfo.name,
+            price: itemInfo.price,
             descrbtionArray: desc,
-            id: id,
-            frequentlyBoughtTogetherArray:frequentlyBoughtTogether
+            id: itemInfo._id
         })
+        return true;
+        console.log(this.state.name)
     }
 
 
@@ -156,7 +184,7 @@ class Itemsview extends React.Component {
         )
         this.setState({quantity:1})
     }
-
+    //this isn't working right now
     addAllItemsToCart(){
         window.dispatchEvent(
         new CustomEvent('addToCart', {
@@ -174,6 +202,8 @@ class Itemsview extends React.Component {
         })
         )
     }
+
+    //
     fullSizeScreen(){
         return      (
             <>   
@@ -186,12 +216,12 @@ class Itemsview extends React.Component {
             <div id='mainImage' className="col-6">
                 <h6 > Model # DWHT51054 SKU #1001209802</h6>
 
-                <img default-src='none' src={this.state.theClickedImg} width='70%'></img> 
+                <img default-src='none' src='https://images.homedepot-static.com/productImages/c275d0bb-5e98-412c-b1b1-8726fd1f1477/svn/dewalt-claw-hammers-dwht51054-64_1000.jpg' width='70%'></img> 
             </div>
         </>         )
     }
 
-
+    //Broke due to differenes in Bootsrap
     // phoneSizeImage(){
     //     return <div><div id="IbrahimmyCarousel" className="carousel slide" data-ride="carousel">
   
@@ -224,11 +254,12 @@ class Itemsview extends React.Component {
     //   </div></div>
     // }
 
+    //Hardocode Image Urls here!!
     frequentlyBoughtTogetherRender(){
         return <>
             <div className="col-2">
                 <img 
-             src={this.state.theClickedImg}  width='60%'></img>
+             src='https://images.homedepot-static.com/productImages/c275d0bb-5e98-412c-b1b1-8726fd1f1477/svn/dewalt-claw-hammers-dwht51054-64_1000.jpg'  width='60%'></img>
              <h6 >{this.state.name}</h6>
                     </div>
                     

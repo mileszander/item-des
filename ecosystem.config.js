@@ -2,7 +2,7 @@
 module.exports = {
     apps: [{
       name: 'items-des',
-      script: './server/index.js'
+      script: './server/indexDB.js'
     }],
     deploy: {
       production: {
