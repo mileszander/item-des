@@ -1,11 +1,11 @@
 require('dotenv').config();
-
+const config =  require('../configdb.js')
 const express = require('express');
 const cluster = require('cluster');
 const cors = require('cors');
 const app = express();
-const PORT = 3001
-const HOST = 'localhost'
+const PORT = config.SERVER_PORT
+const HOST = config.SERVER_HOST
 const bodyParser = require("body-parser");
 const path = require('path');
 const monDB = require("../db/configDB.js")
@@ -13,6 +13,7 @@ const monDB = require("../db/configDB.js")
 // const compression = require('compression')
 const http = require('http');
 
+// console.log(config.SERVER_HOST)
 //maximum number of CPUs
 // const numCPUs = require('os').cpus().length;
 const numCPUs = 4
@@ -79,8 +80,19 @@ app.get('/id/:id', function (req, res) {
     })
     .catch(console.log)
 })
+
+app.get('/makedata69420', function (req, res) {
+  monDB.addMany()
+  .then(() => {
+    console.log('completed')
+    res.send('completed')
+  })
+  .catch(console.log)
+})
+
   
 
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`)
+app.listen(PORT, () => {
+  console.log(`Running on http://${HOST}:${PORT}`)
+});
